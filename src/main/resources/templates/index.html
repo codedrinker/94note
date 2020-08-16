@@ -45,6 +45,11 @@
 		    justify-content: flex-end;
 		    text-align: right;
 		}
+		header .status {
+		    color: #84878c;
+            opacity: 0;
+            transition: opacity .5s .5s;
+        }
 		footer {
 			align-items: flex-start;
 		    display: flex;
@@ -80,36 +85,56 @@
 		textarea:focus {
 		    outline-offset: 0px;
 		}
-
-
-
-
-
     </style>
+    <script th:inline="javascript">
+        function sync() {
+            save();
+            setTimeout(sync, 10000);
+        };
+
+        function save() {
+             var xhr = function() {
+                if (window.XMLHttpRequest) {
+                    return new XMLHttpRequest();
+                } else {
+                    return new ActiveObject('Micrsorf.XMLHttp');
+                }
+            }();
+            xhr.open('post',document.location.href);
+            xhr.onreadystatechange = function() {
+                if(xhr.status === 200) {
+                    document.getElementById('status').textContent = 'saved';
+                    document.getElementById('status').style.opacity = 1;
+                }
+            }
+            xhr.send(document.getElementById('editor').value);
+        };
+    </script>
 </head>
-<body>
+<body onload="setTimeout(sync, 10000)">
 <div class="container">
-    <header></header>
+    <header>
+        <span class="status" id="status">saved</span>
+    </header>
     <main>
         <textarea class="editor" id='editor' th:text="${content}"></textarea>
     </main>
     <footer><a th:href="${uri}" th:text="${uri}" class="this-page"></a></footer>
 </div>
+
 <script th:inline="javascript">
-		document.addEventListener('keydown', function(e){
-		    if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)){
-		        e.preventDefault();
-		        var xhr = function() {
-                    if (window.XMLHttpRequest) {
-                        return new XMLHttpRequest();
-                    } else {
-                        return new ActiveObject('Micrsorf.XMLHttp');
-                    }
-                }();
-                xhr.open('post',document.location.href);
-                xhr.send(document.getElementById('editor').value);
-		     }
-		});
+    document.addEventListener('keydown', function(e){
+        if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+            e.preventDefault();
+            save();
+         }
+    });
+
+    document.getElementById('editor').addEventListener('input',function () {
+        console.log("input");
+        document.getElementById('status').textContent = 'unsaved';
+        document.getElementById('status').style.opacity = 1;
+    });
 </script>
 </body>
 </html>
