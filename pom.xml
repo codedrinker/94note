@@ -21,7 +21,7 @@
         <profile>
             <id>dev</id>
             <properties>
-                <file.path>/Users/codedrinker/Code/94note</file.path>
+                <file.path>target</file.path>
                 <domain>http://localhost:8886</domain>
             </properties>
             <activation>
