@@ -1,2 +1,5 @@
-mvn flyway:migrate
-mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+## 94note
+免费的在线记事本
+
+## 启动
+运行脚本启动 ./start 

@@ -4,13 +4,7 @@ mvn clean compile -DskipTests package
 pid=$(ps aux | grep "94note" | grep -v grep | awk '{print $2}')
 echo "kill -9 $pid"
 kill -9 $pid
-STATUS=$?
-if [ $STATUS -eq 0 ]
-then
-	echo "Kill previous process successfully."
-	echo "Begin restart 94note"
-	nohup java -jar -Dspring.profiles.active=prod target/94note-1.0.0-SNAPSHOT.jar >/dev/null 2>&1 &
-	echo "94note restart successfully."
-else
-	echo "Kill previous process failed."
-fi
+echo "Kill previous process successfully."
+echo "Begin restart 94note"
+nohup java -jar -Dspring.profiles.active=prod target/94note-1.0.0-SNAPSHOT.jar >/dev/null 2>&1 &
+echo "94note restart successfully."
