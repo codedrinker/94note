@@ -31,7 +31,7 @@
         <profile>
             <id>prod</id>
             <properties>
-                <file.path>~/94note-data</file.path>
+                <file.path>/root/data</file.path>
                 <domain>https://94note.com</domain>
             </properties>
         </profile>
