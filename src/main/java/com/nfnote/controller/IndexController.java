@@ -31,9 +31,9 @@ public class IndexController {
     public String index() {
         String uri = uriService.generateUri();
         if (uri != null) {
-            return "redirect:/" + uri;
+            return "redirect:" + domain + "/" + uri;
         }
-        return "redirect:/";
+        return "redirect:" + domain;
     }
 
     @GetMapping("/{uri}")
