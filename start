@@ -1,10 +1,10 @@
 cd ~/94note/
 git pull
-mvn clean compile -DskipTests package
+mvn clean compile -DskipTests -Pprod package
 pid=$(ps aux | grep "94note" | grep -v grep | awk '{print $2}')
 echo "kill -9 $pid"
 kill -9 $pid
 echo "Kill previous process successfully."
 echo "Begin restart 94note"
-nohup java -jar -Dspring.profiles.active=prod target/94note-1.0.0.jar >/dev/null 2>&1 &
+nohup java -jar target/94note-1.0.0.jar >/dev/null 2>&1 &
 echo "94note restart successfully."
